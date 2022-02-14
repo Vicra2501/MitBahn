@@ -12,6 +12,16 @@
     <label>Password
       <input type="password" name="password" placeholder="keep your password save!" />
     </label>
+    
+  <input type="checkbox" onclick="Toggle()" />
+  <b>Show Password</b>
+ <b><p>Click on the checkbox to show or hide password: </p></b>
+  <script>
+    // Change the type of input to password or text 
+    function Toggle() { var temp
+    = document.getElementById("typepass"); if (temp.type === "password") {
+    temp.type = "text"; } else { temp.type = "password"; } }
+  </script>
 
     <button type="submit">Let me in!</button>
 
