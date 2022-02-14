@@ -1,0 +1,22 @@
+{{!-- views/auth/login.hbs --}}
+
+<div id="form">
+  <h2>Login</h2>
+
+  <form action="/login" method="POST">
+
+    <label> Email
+      <input type="email" name="email" placeholder="schwarzfahrer@bordbistro.db" />
+    </label>
+
+    <label>Password
+      <input type="password" name="password" placeholder="keep your password save!" />
+    </label>
+
+    <button type="submit">Let me in!</button>
+
+    {{#if errorMessage}}
+      <p class="error">{{errorMessage}}</p>
+    {{/if}}
+  </form>
+</div>
