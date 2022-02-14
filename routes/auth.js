@@ -13,6 +13,7 @@ const User = require("../models/User.model");
 // Require necessary (isLoggedOut and isLiggedIn) middleware in order to control access to specific routes
 const isLoggedOut = require("../middleware/isLoggedOut");
 const isLoggedIn = require("../middleware/isLoggedIn");
+const res = require("express/lib/response");
 
 router.get("/signup", isLoggedOut, (req, res) => {
   res.render("auth/signup");
@@ -151,5 +152,10 @@ router.get("/logout", isLoggedIn, (req, res) => {
     res.redirect("/");
   });
 });
+
+// Search page for aviliable groups
+// accessible incl. non-loged-in users for viewing the offerings  
+//router.get("/search", (req, res, next) )
+
 
 module.exports = router;
