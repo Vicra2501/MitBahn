@@ -1,11 +1,35 @@
 
  <form action="/auth/signup" method="POST">
+   <label> Surname
+      <input type="text" name="username">
+   </label>
+   <br>
+   <label> Name
+      <input type="text" name="username">
+   </label>
+   <br>
    <label> Username
       <input type="text" name="username">
    </label>
+<br>
    <label> Password
       <input type="password" name="password">
    </label>
+  <input type="checkbox" onclick="Toggle()" />
+  <b>Show Password</b>
+ <b><p>Click on the checkbox to show or hide password: </p></b>
+  <script>
+    // Change the type of input to password or text 
+    function Toggle() { var temp
+    = document.getElementById("typepass"); if (temp.type === "password") {
+    temp.type = "text"; } else { temp.type = "password"; } }
+  </script>
+
+</form>
+
+
+
+ 
 
    <button type="submit">Submit</button>
 </form>
