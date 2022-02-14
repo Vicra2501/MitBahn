@@ -156,6 +156,6 @@ router.get("/logout", isLoggedIn, (req, res) => {
 // Search page for aviliable groups
 // accessible incl. non-loged-in users for viewing the offerings  
 //router.get("/search", (req, res, next) )
-
+//
 
 module.exports = router;
