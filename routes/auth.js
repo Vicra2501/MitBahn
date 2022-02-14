@@ -155,6 +155,32 @@ router.get("/logout", isLoggedIn, (req, res) => {
 
 // Search page for aviliable groups
 // accessible incl. non-loged-in users for viewing the offerings  
-//router.get("/search", (req, res, next) )
+router.get("/search", (req, res, next) => {
+  const { from, to, date } = req.body;
+
+  if (!from) {
+    return res
+      .status(400)
+      .render('search', { errorMessage: 'please provide a valid starting point'})
+  }
+
+  if (!to) {
+    return res
+      .status(400)
+      .render('search', { errorMessage: 'please provide a valid destination point'})
+}
+
+if (!date) {
+  return res
+  .status(400)
+  .render('search', { errorMessage: 'please provide a valid date'})
+}})
+
+// User Profile Page
+
+
+
+
+
 
 module.exports = router;
