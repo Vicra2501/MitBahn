@@ -1,0 +1,17 @@
+{{#if user}}
+
+  <h2 class="username">{{ name }} {{surname}}</h2>
+
+  <p>Hello, {{name}}. Here are all your information stored and you can edit them by clicking on "edit"</p>
+
+{{!-- populate with data --}}
+
+
+
+  <button>
+    <a href="/userProfile">Reload the page</a>
+  </button>
+
+{{else}}
+  <p>Please <a href="/auth/login">login</a>to view your information. <br> No account yet? No problem! Go here to <a href="/auth/signup">signup</a> and find a groupp or found one on your own 👥🚋</p>
+{{/if}}
