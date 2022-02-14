@@ -2,7 +2,7 @@ const { Schema, model } = require("mongoose");
 
 const userSchema = new Schema(
   {
-    username: {
+    userName: {
       type: String,
       unique: true,
     },
@@ -24,9 +24,11 @@ const userSchema = new Schema(
     role: String // to be able to assign admins who can delete every group
   },
   {
-    timestamps: true,
-  }
-);
+    timestamps: {
+      createdAt: 'created_at',
+      updatedAt: 'updated_at'
+    }
+  });
 
 const User = model("User", userSchema);
 
