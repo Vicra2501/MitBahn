@@ -4,11 +4,36 @@ const router = require("express").Router();
 const bcrypt = require("bcrypt");
 const mongoose = require("mongoose");
 
+
 // How many rounds should bcrypt run the salt (default [10 - 12 rounds])
 const saltRounds = 10;
 
-// Require the User model in order to interact with the database
-const User = require("../models/User");
+// // Require the User and Group model in order to interact with the database
+// const User = require
+// const Group = require
+
+
+// // handles session/cookies
+// const session = require('express-session');
+// module.exports = User
+
+// // required for the app when deployed to Heroku (in production)
+//   User.set('trust proxy', 1);
+
+// // using session
+// User.use(
+//   session({
+//     secret: process.env.SESSION_SECRET ,
+//     resave: true,
+//     saveUninitialized: false,
+//     cookie: {
+//       sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
+//       secure: process.env.NODE_ENV === 'production',
+//       httpOnly: true,
+//       maxAge: 60000 * 60 // 60 * 1000 ms === 1 min
+//     }
+//   })
+// );
 
 // Require necessary (isLoggedOut and isLiggedIn) middleware in order to control access to specific routes
 const isLoggedOut = require("../middleware/isLoggedOut");
@@ -174,22 +199,23 @@ router.get("/search", (req, res, next) => {
 }
 
 if (!date) {
-  return res
+  return res      
   .status(400)
   .render('search', { errorMessage: 'please provide a valid date'})
 }})
 //________________________________________________________________________________________
 
 // USERPAGE Page
-router.get("/userProfile", isLoggedOut, (req, res) => {
-  res.render("auth/logIn")
+router.get("/userprofile", isLoggedOut, (req, res, next) => {
+  res.render("auth/login")
 })
 
-router.get("/userProfile", isLoggedIn, (req, res, next) => {
+router.get("/userprofile", isLoggedIn, (req, res, next) => {
 User.findOne({ username })
   .then((user) => {
     req.session.user = user;
-    return res.render("userProfil/:_id")
+    return res.render("userprofile/:_id")
+
   })
   .catch((err) => {
     next(err);
