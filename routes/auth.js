@@ -215,6 +215,7 @@ User.findOne({ username })
   .then((user) => {
     req.session.user = user;
     return res.render("userprofile/:_id")
+
   })
   .catch((err) => {
     next(err);

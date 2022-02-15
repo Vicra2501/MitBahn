@@ -13,18 +13,21 @@
       <input id="login-pw" type="password" name="password" placeholder="keep your password save!" />
     </label>
     
-        <input type="checkbox" onclick="Toggle()" />
-        <b>Show Password</b>
-          <b><p>Click on the checkbox to show or hide password: </p></b>
-        <script>
-          // Change the type of input to password or text 
-          function Toggle() { var temp
-          = document.getElementById("login-pw"); if (temp.type === "password") {
-          temp.type = "text"; } else { temp.type = "password"; } }
-        </script>
+
+  <input type="checkbox" onclick="Toggle()" />
+  <b>Show Password</b>
+ <b><p>Click on the checkbox to show or hide password: </p></b>
+  <script>
+    // Change the type of input to password or text 
+    function Toggle() { var temp
+    = document.getElementById("login-pw"); if (temp.type === "password") {
+    temp.type = "text"; } else { temp.type = "password"; } }
+  </script>
 
   <button type="submit">Let me in!</button>
         
+
+  <p>No account yet? No problem! Go here to <a href="/auth/signup">signup</a> and find a groupp or found one on your own 👥🚋</p>
 
   <p>No account yet? No problem! Go here to <a href="/auth/signup">signup</a> and find a groupp or found one on your own 👥🚋</p>
 
