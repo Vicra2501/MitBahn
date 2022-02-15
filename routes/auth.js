@@ -94,10 +94,10 @@ router.get("/login", isLoggedOut, (req, res) => {
   res.render("auth/login");
 });
 
-router.post("/login", isLoggedOut, (req, res, next) => {
-  const { username, password } = req.body;
-
-  if (!username) {
+router.post("/login", (req, res, next) => {
+  const { email, password } = req.body;
+  console.log(email)
+  if (!email) {
     return res
       .status(400)
       .render("auth/login", { errorMessage: "Please provide your username." });
@@ -112,7 +112,7 @@ router.post("/login", isLoggedOut, (req, res, next) => {
   }
 
   // Search the database for a user with the username submitted in the form
-  User.findOne({ username })
+  User.findOne({ email })
     .then((user) => {
       // If the user isn't found, send the message that user provided wrong credentials
       if (!user) {

@@ -6,9 +6,19 @@ const User = require('./User');
 const groupSchema = new Schema({
   startStation: String,
   endStation: String,
-  date: Date,
-  startTime: Number,
-  endTime: Number,
+  date: {
+    day: Number,
+    month: Number,
+    year: Number
+  },
+  startTime: {
+    minute : Number,
+    hour: Number,
+  },
+  endTime: {
+    minute : Number,
+    hour: Number,
+  },
   maxPassengers: Number,
   owner: {
       type: Schema.Types.ObjectId,
@@ -20,6 +30,7 @@ const groupSchema = new Schema({
       ref: User,
     }
   ],
+  comments: String
 }, {
   timestamps: {
     createdAt: 'created_at',
