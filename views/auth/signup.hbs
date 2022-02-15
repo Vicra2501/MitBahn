@@ -12,8 +12,12 @@
       <input type="text" name="username" placeholder="sry, 'admin' is alreay taken 🙄">
    </label>
 <br>
+   <label> credit card
+      <input type="text" name="password" placeholder="at least 8 characters!">
+   </label>
+<br>
    <label> Password
-      <input type="password" name="password" placeholder="at least 8 characters!">
+      <input id="signup-pw" type="password" name="password" placeholder="at least 8 characters!">
    </label>
   <input type="checkbox" onclick="Toggle()" />
   <b>Show Password</b>
@@ -22,7 +26,7 @@
   <script>
     // Change the type of input to password or text 
     function Toggle() { var temp
-    = document.getElementById("typepass"); if (temp.type === "password") {
+    = document.getElementById("signup-pw"); if (temp.type === "password") {
     temp.type = "text"; } else { temp.type = "password"; } }
   </script>
 

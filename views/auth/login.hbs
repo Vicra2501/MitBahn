@@ -10,7 +10,7 @@
     </label>
 
     <label>Password
-      <input type="password" name="password" placeholder="keep your password save!" />
+      <input id="login-pw" type="password" name="password" placeholder="keep your password save!" />
     </label>
     
   <input type="checkbox" onclick="Toggle()" />
@@ -19,11 +19,13 @@
   <script>
     // Change the type of input to password or text 
     function Toggle() { var temp
-    = document.getElementById("typepass"); if (temp.type === "password") {
+    = document.getElementById("login-pw"); if (temp.type === "password") {
     temp.type = "text"; } else { temp.type = "password"; } }
   </script>
 
     <button type="submit">Let me in!</button>
+
+  <p>No account yet? No problem! Go here to <a href="/auth/signup">signup</a> and find a groupp or found one on your own 👥🚋</p>
 
     {{#if errorMessage}}
       <p class="error">{{errorMessage}}</p>

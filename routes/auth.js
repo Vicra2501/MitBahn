@@ -14,7 +14,9 @@ const User = require("../models/User");
 const isLoggedOut = require("../middleware/isLoggedOut");
 const isLoggedIn = require("../middleware/isLoggedIn");
 const res = require("express/lib/response");
+const { findById } = require("../models/User");
 
+// SIGNUP
 router.get("/signup", isLoggedOut, (req, res) => {
   res.render("auth/signup");
 });
@@ -89,7 +91,9 @@ router.post("/signup", isLoggedOut, (req, res) => {
       });
   });
 });
+//________________________________________________________________________________________
 
+// LOGIN
 router.get("/login", isLoggedOut, (req, res) => {
   res.render("auth/login");
 });
@@ -135,10 +139,8 @@ router.post("/login", isLoggedOut, (req, res, next) => {
     })
 
     .catch((err) => {
-      // in this case we are sending the error handling to the error handling middleware that is defined in the error handling file
-      // you can just as easily run the res.status that is commented out below
       next(err);
-      // return res.status(500).render("login", { errorMessage: err.message });
+       return res.status(500).render("login", { errorMessage: err.message });
     });
 });
 
@@ -152,8 +154,9 @@ router.get("/logout", isLoggedIn, (req, res) => {
     res.redirect("/");
   });
 });
+//________________________________________________________________________________________
 
-// Search page for aviliable groups
+// SEARCH page for aviliable groups
 // accessible incl. non-loged-in users for viewing the offerings  
 router.get("/search", (req, res, next) => {
   const { from, to, date } = req.body;
@@ -175,12 +178,24 @@ if (!date) {
   .status(400)
   .render('search', { errorMessage: 'please provide a valid date'})
 }})
+//________________________________________________________________________________________
 
-// User Profile Page
+// USERPAGE Page
+router.get("/userProfile", isLoggedOut, (req, res) => {
+  res.render("auth/logIn")
+})
 
-
-
-
+router.get("/userProfile", isLoggedIn, (req, res, next) => {
+User.findOne({ username })
+  .then((user) => {
+    req.session.user = user;
+    return res.render("userProfil/:_id")
+  })
+  .catch((err) => {
+    next(err);
+     return res.status(500).render("auth/login", { errorMessage: err.message });
+  });
+})
 
 
 module.exports = router;
