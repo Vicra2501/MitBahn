@@ -4,17 +4,44 @@ const router = require("express").Router();
 const bcrypt = require("bcrypt");
 const mongoose = require("mongoose");
 
+
 // How many rounds should bcrypt run the salt (default [10 - 12 rounds])
 const saltRounds = 10;
 
-// Require the User model in order to interact with the database
-const User = require("../models/User");
+// // Require the User and Group model in order to interact with the database
+// const User = require
+// const Group = require
+
+
+// // handles session/cookies
+// const session = require('express-session');
+// module.exports = User
+
+// // required for the app when deployed to Heroku (in production)
+//   User.set('trust proxy', 1);
+
+// // using session
+// User.use(
+//   session({
+//     secret: process.env.SESSION_SECRET ,
+//     resave: true,
+//     saveUninitialized: false,
+//     cookie: {
+//       sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
+//       secure: process.env.NODE_ENV === 'production',
+//       httpOnly: true,
+//       maxAge: 60000 * 60 // 60 * 1000 ms === 1 min
+//     }
+//   })
+// );
 
 // Require necessary (isLoggedOut and isLiggedIn) middleware in order to control access to specific routes
 const isLoggedOut = require("../middleware/isLoggedOut");
 const isLoggedIn = require("../middleware/isLoggedIn");
 const res = require("express/lib/response");
+const { findById } = require("../models/User");
 
+// SIGNUP
 router.get("/signup", isLoggedOut, (req, res) => {
   res.render("auth/signup");
 });
@@ -89,7 +116,9 @@ router.post("/signup", isLoggedOut, (req, res) => {
       });
   });
 });
+//________________________________________________________________________________________
 
+// LOGIN
 router.get("/login", isLoggedOut, (req, res) => {
   res.render("auth/login");
 });
@@ -135,10 +164,8 @@ router.post("/login", (req, res, next) => {
     })
 
     .catch((err) => {
-      // in this case we are sending the error handling to the error handling middleware that is defined in the error handling file
-      // you can just as easily run the res.status that is commented out below
       next(err);
-      // return res.status(500).render("login", { errorMessage: err.message });
+       return res.status(500).render("login", { errorMessage: err.message });
     });
 });
 
@@ -152,8 +179,9 @@ router.get("/logout", isLoggedIn, (req, res) => {
     res.redirect("/");
   });
 });
+//________________________________________________________________________________________
 
-// Search page for aviliable groups
+// SEARCH page for aviliable groups
 // accessible incl. non-loged-in users for viewing the offerings  
 router.get("/search", (req, res, next) => {
   const { from, to, date } = req.body;
@@ -171,16 +199,29 @@ router.get("/search", (req, res, next) => {
 }
 
 if (!date) {
-  return res
+  return res      
   .status(400)
   .render('search', { errorMessage: 'please provide a valid date'})
 }})
+//________________________________________________________________________________________
 
-// User Profile Page
+// USERPAGE Page
+router.get("/userprofile", isLoggedOut, (req, res, next) => {
+  res.render("auth/login")
+})
 
+router.get("/userprofile", isLoggedIn, (req, res, next) => {
+User.findOne({ username })
+  .then((user) => {
+    req.session.user = user;
+    return res.render("userprofile/:_id")
 
-
-
+  })
+  .catch((err) => {
+    next(err);
+     return res.status(500).render("auth/login", { errorMessage: err.message });
+  });
+})
 
 
 module.exports = router;
